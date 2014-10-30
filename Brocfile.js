@@ -3,7 +3,9 @@
         mergeTrees  = require('broccoli-merge-trees'),
         pickFiles   = require('broccoli-static-compiler'),
         uglifyJs    = require('broccoli-uglify-js'),
+        exportTree = require('broccoli-export-tree'),
         app = 'client',
+        treeToExport,
         appHtml,
         appJs;
 
@@ -31,4 +33,10 @@ appJs = concatenate(app, {
         compress: true
     });
 
-module.exports = mergeTrees([appHtml, appJs]);
+treeToExport = mergeTrees([appHtml, appJs]);
+
+exportTree(treeToExport, {
+  destDir: 'public'
+});
+
+module.exports = treeToExport;
